@@ -30,7 +30,18 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 <div class="hero"><span class="pill" id="tag">10 EVERYDAY TOOLS · ONE PLACE</span><h1 id="headline">Small tools. Smarter everyday decisions.</h1><p id="subhead">Simple calculators and planners designed to make daily life easier.</p></div></header>
 <main class="wrap"><div class="sectionhead"><div><h2 id="toolsTitle">Explore tools</h2><p id="toolsSub">Choose a tool to get started — no sign-up needed.</p></div></div><div class="grid" id="grid"></div><section class="panel" id="panel"><div class="panelhead"><h2 id="panelTitle"></h2><button class="close" id="close">✕</button></div><div id="fields" class="fields"></div><div class="actions"><button class="primary" id="calculate">Calculate</button><button class="secondary" id="reset">Reset</button></div><div class="result" id="result" aria-live="polite"></div></section>
 <div class="notice" id="notice"><b>Privacy:</b> Calculations run in your browser. This prototype does not collect or upload the values you enter. Results are estimates; verify important financial or tax decisions independently.</div></main>
-<footer>1 RUPEE KAAM KA · Useful tools for everyday India</footer>
+<footer>
+  <div>1 RUPEE KAAM KA · Useful tools for everyday India</div>
+  <nav class="legal-links" aria-label="Information and policies">
+    <a href="about.html">About Us</a> ·
+    <a href="contact.html">Contact Us</a> ·
+    <a href="pricing.html">Pricing</a> ·
+    <a href="terms.html">Terms &amp; Conditions</a> ·
+    <a href="privacy.html">Privacy Policy</a> ·
+    <a href="refund.html">Refund Policy</a>
+  </nav>
+</footer>
+<style>.legal-links{margin-top:10px;display:flex;justify-content:center;flex-wrap:wrap;gap:7px}.legal-links a{color:inherit;text-decoration:underline;text-underline-offset:3px}</style>
 <script>
 const copy={
 en:{tag:"10 EVERYDAY TOOLS · ONE PLACE",headline:"Small tools. Smarter everyday decisions.",subhead:"Simple calculators and planners designed to make daily life easier.",toolsTitle:"Explore tools",toolsSub:"Choose a tool to get started — no sign-up needed.",calc:"Calculate",reset:"Reset",close:"Close",result:"Your result",privacy:"Privacy: Calculations run in your browser. This prototype does not collect or upload the values you enter. Results are estimates; verify important financial or tax decisions independently.",items:[
