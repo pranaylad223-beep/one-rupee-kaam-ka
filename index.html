@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101828"><meta name="description" content="Everyday useful tools in one simple app.">
+<link rel="manifest" href="manifest.webmanifest">
+<title>1 RUPEE KAAM KA</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#101828;--muted:#667085;--brand:#ffca3a;--navy:#101828;--line:#e7eaf0;--green:#16845b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:var(--navy);color:#fff;padding:22px max(18px,calc((100% - 1100px)/2)) 25px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-weight:900;letter-spacing:.3px;font-size:20px}.brand span{color:var(--brand)}
+select,button,input{font:inherit}select{border:1px solid #d0d5dd;border-radius:10px;padding:9px;background:#fff;color:#222}
+.hero{padding:26px 0 8px;max-width:1100px;margin:auto}.pill{display:inline-block;background:#2a3548;color:#ffdf83;border-radius:99px;padding:5px 10px;font-size:12px;font-weight:700}
+h1{font-size:clamp(27px,5vw,44px);line-height:1.08;margin:13px 0 9px;max-width:650px}.hero p{color:#c8d0dd;max-width:560px;margin:0}
+.wrap{max-width:1100px;margin:auto;padding:22px 18px 60px}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:8px 0 15px}.sectionhead h2{font-size:21px;margin:0}.sectionhead p{margin:0;color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}
+.tool{border:1px solid var(--line);background:var(--card);border-radius:17px;padding:17px;text-align:left;cursor:pointer;transition:.15s;min-height:132px;color:var(--ink)}
+.tool:hover{transform:translateY(-2px);border-color:#e5b52f;box-shadow:0 8px 22px #1822300d}.ico{font-size:25px}.tool h3{margin:9px 0 3px;font-size:16px}.tool p{margin:0;color:var(--muted);font-size:13px}
+.panel{display:none;margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 8px 25px #18223008}.panel.active{display:block}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:10px}.panel h2{margin:0 0 12px}.close{border:0;background:#f1f3f7;border-radius:9px;padding:8px 12px;cursor:pointer}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:5px}.field input{width:100%;padding:11px;border:1px solid #d0d5dd;border-radius:10px;outline-color:#e6b52e}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}.primary{border:0;border-radius:11px;background:var(--navy);color:#fff;padding:11px 17px;font-weight:700;cursor:pointer}.secondary{border:1px solid var(--line);border-radius:11px;background:#fff;padding:10px 15px;cursor:pointer}
+.result{margin-top:15px;padding:15px;background:#fff8df;border:1px solid #f5df9a;border-radius:12px;display:none}.result strong{font-size:22px}.result small{display:block;color:#655522;margin-top:4px}
+.notice{margin-top:20px;background:#eef4ff;border:1px solid #d7e5ff;border-radius:14px;padding:14px;color:#344054;font-size:13px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
+@media(max-width:600px){header{padding:18px}.top{align-items:flex-start}.brand{font-size:17px}.wrap{padding:18px 14px 45px}.tool{min-height:116px}.panel{padding:16px}}
+</style></head>
+<body>
+<header><div class="top"><div class="brand">₹1 <span>KAAM KA</span></div><select id="lang" aria-label="Language"><option value="en">English</option><option value="hi">हिंदी</option><option value="mr">मराठी</option></select></div>
+<div class="hero"><span class="pill" id="tag">10 EVERYDAY TOOLS · ONE PLACE</span><h1 id="headline">Small tools. Smarter everyday decisions.</h1><p id="subhead">Simple calculators and planners designed to make daily life easier.</p></div></header>
+<main class="wrap"><div class="sectionhead"><div><h2 id="toolsTitle">Explore tools</h2><p id="toolsSub">Choose a tool to get started — no sign-up needed.</p></div></div><div class="grid" id="grid"></div><section class="panel" id="panel"><div class="panelhead"><h2 id="panelTitle"></h2><button class="close" id="close">✕</button></div><div id="fields" class="fields"></div><div class="actions"><button class="primary" id="calculate">Calculate</button><button class="secondary" id="reset">Reset</button></div><div class="result" id="result" aria-live="polite"></div></section>
+<div class="notice" id="notice"><b>Privacy:</b> Calculations run in your browser. This prototype does not collect or upload the values you enter. Results are estimates; verify important financial or tax decisions independently.</div></main>
+<footer>1 RUPEE KAAM KA · Useful tools for everyday India</footer>
+<script>
+const copy={
+en:{tag:"10 EVERYDAY TOOLS · ONE PLACE",headline:"Small tools. Smarter everyday decisions.",subhead:"Simple calculators and planners designed to make daily life easier.",toolsTitle:"Explore tools",toolsSub:"Choose a tool to get started — no sign-up needed.",calc:"Calculate",reset:"Reset",close:"Close",result:"Your result",privacy:"Privacy: Calculations run in your browser. This prototype does not collect or upload the values you enter. Results are estimates; verify important financial or tax decisions independently.",items:[
+["EMI Calculator","🏦","Estimate your monthly loan payment."],["Monthly Budget","💰","Plan income, expenses and savings."],["Discount Calculator","🏷️","Find the final price after a discount."],["Bill Splitter","🧾","Split a bill equally among friends."],["Smart Shopping","🛒","Compare unit prices and find better value."],["GST Calculator","📊","Add or remove GST from a price."],["Age & Date","📅","Calculate age from date of birth."],["Salary Calculator","💼","Estimate monthly take-home from CTC."],["Electricity Cost","💡","Estimate electricity usage cost."],["Daily Checklist","✅","Make a simple personal task list."]]},
+hi:{tag:"10 रोज़मर्रा के टूल · एक जगह",headline:"छोटे टूल। रोज़मर्रा के बेहतर फैसले।",subhead:"आपकी रोज़मर्रा की ज़िंदगी आसान बनाने वाले कैलकुलेटर और प्लानर।",toolsTitle:"टूल चुनें",toolsSub:"शुरू करने के लिए कोई टूल चुनें — साइन-अप की ज़रूरत नहीं।",calc:"गणना करें",reset:"रीसेट",close:"बंद करें",result:"आपका परिणाम",privacy:"गोपनीयता: गणना आपके ब्राउज़र में होती है। यह प्रोटोटाइप आपकी जानकारी जमा या अपलोड नहीं करता। परिणाम अनुमान हैं; महत्वपूर्ण वित्तीय या टैक्स निर्णयों की स्वतंत्र रूप से पुष्टि करें।",items:[
+["EMI कैलकुलेटर","🏦","मासिक लोन किस्त का अनुमान लगाएं।"],["मासिक बजट","💰","आय, खर्च और बचत की योजना बनाएं।"],["डिस्काउंट कैलकुलेटर","🏷️","छूट के बाद कीमत जानें।"],["बिल स्प्लिटर","🧾","दोस्तों में बिल बराबर बांटें।"],["स्मार्ट शॉपिंग","🛒","प्रति यूनिट कीमत की तुलना करें।"],["GST कैलकुलेटर","📊","कीमत में GST जोड़ें या घटाएं।"],["उम्र और तारीख","📅","जन्मतिथि से उम्र निकालें।"],["सैलरी कैलकुलेटर","💼","CTC से मासिक वेतन का अनुमान।"],["बिजली खर्च","💡","बिजली उपयोग का खर्च जानें।"],["दैनिक चेकलिस्ट","✅","अपने रोज़ के काम लिखें।"]]},
+mr:{tag:"10 रोजच्या उपयोगाची साधने · एकाच ठिकाणी",headline:"छोटी साधने. रोजचे स्मार्ट निर्णय.",subhead:"तुमचे दैनंदिन जीवन सोपे करणारी साधी कॅल्क्युलेटर आणि प्लॅनर्स.",toolsTitle:"साधने वापरून पाहा",toolsSub:"सुरू करण्यासाठी एखादे साधन निवडा — नोंदणीची गरज नाही.",calc:"गणना करा",reset:"रीसेट",close:"बंद करा",result:"तुमचा निकाल",privacy:"गोपनीयता: गणना तुमच्या ब्राउझरमध्ये होते. हा प्रोटोटाइप तुमची माहिती जमा किंवा अपलोड करत नाही. निकाल अंदाजे आहेत; महत्त्वाचे आर्थिक किंवा करविषयक निर्णय स्वतंत्रपणे तपासा.",items:[
+["EMI कॅल्क्युलेटर","🏦","मासिक कर्जहप्ता मोजा."],["मासिक बजेट","💰","उत्पन्न, खर्च आणि बचतीचे नियोजन."],["डिस्काउंट कॅल्क्युलेटर","🏷️","सूट दिल्यानंतरची किंमत शोधा."],["बिल स्प्लिटर","🧾","मित्रांमध्ये बिल समान वाटा."],["स्मार्ट शॉपिंग","🛒","प्रति युनिट किंमत तुलना करा."],["GST कॅल्क्युलेटर","📊","किमतीत GST जोडा किंवा वजा करा."],["वय आणि तारीख","📅","जन्मतारखेवरून वय काढा."],["पगार कॅल्क्युलेटर","💼","CTC वरून मासिक पगाराचा अंदाज."],["वीज खर्च","💡","वीज वापराचा खर्च मोजा."],["दैनिक चेकलिस्ट","✅","रोजची कामे लिहून ठेवा."]]}
+};
+const schemas=[
+[{k:"p",l:["Loan amount (₹)","लोन राशि (₹)","कर्जाची रक्कम (₹)"],v:"500000"},{k:"r",l:["Annual interest rate (%)","सालाना ब्याज (%)","वार्षिक व्याजदर (%)"],v:"11"},{k:"n",l:["Tenure (years)","अवधि (वर्ष)","कालावधी (वर्षे)"],v:"5"}],
+[{k:"income",l:["Monthly income (₹)","मासिक आय (₹)","मासिक उत्पन्न (₹)"],v:"30000"},{k:"expense",l:["Monthly expenses (₹)","मासिक खर्च (₹)","मासिक खर्च (₹)"],v:"20000"}],
+[{k:"price",l:["Original price (₹)","मूल कीमत (₹)","मूळ किंमत (₹)"],v:"1000"},{k:"discount",l:["Discount (%)","छूट (%)","सूट (%)"],v:"20"}],
+[{k:"bill",l:["Total bill (₹)","कुल बिल (₹)","एकूण बिल (₹)"],v:"1200"},{k:"people",l:["Number of people","लोगों की संख्या","लोकांची संख्या"],v:"4"}],
+[{k:"a",l:["Option A quantity","विकल्प A मात्रा","पर्याय A चे वजन/प्रमाण"],v:"1"},{k:"ap",l:["Option A price (₹)","विकल्प A कीमत (₹)","पर्याय A किंमत (₹)"],v:"100"},{k:"b",l:["Option B quantity","विकल्प B मात्रा","पर्याय B चे वजन/प्रमाण"],v:"2"},{k:"bp",l:["Option B price (₹)","विकल्प B कीमत (₹)","पर्याय B किंमत (₹)"],v:"180"}],
+[{k:"price",l:["Base price (₹)","मूल कीमत (₹)","मूळ किंमत (₹)"],v:"1000"},{k:"gst",l:["GST rate (%)","GST दर (%)","GST दर (%)"],v:"18"}],
+[{k:"dob",l:["Date of birth","जन्म तिथि","जन्मतारीख"],v:"1993-12-28",type:"date"}],
+[{k:"ctc",l:["Annual CTC (₹)","वार्षिक CTC (₹)","वार्षिक CTC (₹)"],v:"360000"},{k:"deduct",l:["Estimated annual deductions (₹)","अनुमानित वार्षिक कटौती (₹)","अंदाजे वार्षिक कपात (₹)"],v:"24000"}],
+[{k:"watts",l:["Appliance power (watts)","उपकरण की शक्ति (वॉट)","उपकरणाची क्षमता (वॅट)"],v:"1000"},{k:"hours",l:["Hours used per day","रोज़ उपयोग के घंटे","दररोज वापराचे तास"],v:"5"},{k:"days",l:["Days per month","महीने के दिन","महिन्यातील दिवस"],v:"30"},{k:"rate",l:["Rate per unit (₹)","प्रति यूनिट दर (₹)","प्रति युनिट दर (₹)"],v:"8"}],
+[{k:"task",l:["Add a task","काम जोड़ें","काम जोडा"],v:"Pay electricity bill",type:"text"}]
+];
+let current=-1,lang="en";const $=id=>document.getElementById(id);
+function render(){let c=copy[lang];$("tag").textContent=c.tag;$("headline").textContent=c.headline;$("subhead").textContent=c.subhead;$("toolsTitle").textContent=c.toolsTitle;$("toolsSub").textContent=c.toolsSub;$("calculate").textContent=c.calc;$("reset").textContent=c.reset;$("notice").textContent=c.privacy;
+$("grid").innerHTML=c.items.map((x,i)=>`<button class="tool" data-i="${i}"><div class="ico">${x[1]}</div><h3>${x[0]}</h3><p>${x[2]}</p></button>`).join("");
+document.querySelectorAll(".tool").forEach(b=>b.onclick=()=>openTool(+b.dataset.i));if(current>=0)openTool(current);}
+function openTool(i){current=i;let c=copy[lang];$("panel").classList.add("active");$("panelTitle").textContent=c.items[i][0];$("fields").innerHTML=schemas[i].map(s=>`<div class="field"><label for="${s.k}">${s.l[["en","hi","mr"].indexOf(lang)]}</label><input id="${s.k}" type="${s.type||"number"}" value="${s.v}" ${s.type==="number"?'step="any" min="0"':''}></div>`).join("");$("result").style.display="none";$("calculate").onclick=calculate;$("reset").onclick=()=>openTool(i);$("close").onclick=()=>{$("panel").classList.remove("active");current=-1};$("panel").scrollIntoView({behavior:"smooth",block:"start"});}
+function val(k){return parseFloat($(k).value)||0}function money(n){return "₹"+Number(n).toLocaleString("en-IN",{maximumFractionDigits:2})}
+function show(main,detail=""){let r=$("result");r.style.display="block";r.innerHTML=`<strong>${main}</strong><small>${detail}</small>`}
+function calculate(){let out="",detail="";
+switch(current){
+case 0:{let p=val("p"),r=val("r")/1200,n=val("n")*12;if(!p||!n){show("Enter valid loan details");return}let emi=r? p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):p/n;out=money(emi)+" / month";detail="Total repayment: "+money(emi*n)+" · Total interest: "+money(emi*n-p);break}
+case 1:{let s=val("income")-val("expense");out=money(s);detail=s>=0?"Estimated monthly amount left":"Monthly shortfall";break}
+case 2:{let p=val("price"),d=val("discount");out=money(p*(1-d/100));detail="You save "+money(p*d/100);break}
+case 3:{let b=val("bill"),n=val("people");if(!n){show("Enter number of people");return}out=money(b/n)+" per person";detail="Split equally between "+n+" people";break}
+case 4:{let a=val("ap")/Math.max(val("a"),.000001),b=val("bp")/Math.max(val("b"),.000001);out="Option "+(a<=b?"A":"B")+" is better value";detail="A: "+money(a)+" per unit · B: "+money(b)+" per unit";break}
+case 5:{let p=val("price"),g=val("gst");out=money(p*(1+g/100));detail="GST amount: "+money(p*g/100)+" · Base price: "+money(p);break}
+case 6:{let d=new Date($("dob").value);if(isNaN(d)){show("Enter a valid date");return}let now=new Date(),age=now.getFullYear()-d.getFullYear(),m=now.getMonth()-d.getMonth();if(m<0||(m===0&&now.getDate()<d.getDate()))age--;out=age+" years";detail="Approximate completed age";break}
+case 7:{let m=(val("ctc")-val("deduct"))/12;out=money(m)+" / month";detail="Simple estimate before applicable monthly deductions and tax adjustments";break}
+case 8:{let units=val("watts")/1000*val("hours")*val("days");out=money(units*val("rate"));detail=units.toFixed(2)+" kWh (units) estimated per month";break}
+case 9:{let t=$("task").value.trim();if(!t){show("Add a task first");return}let list=JSON.parse(localStorage.getItem("tasks")||"[]");list.push({t,done:false});localStorage.setItem("tasks",JSON.stringify(list));out="Task saved";detail=list.length+" task(s) stored on this device";break}
+}
+show(out,detail)}
+$("lang").onchange=e=>{lang=e.target.value;render()};render();
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
+</script></body></html>

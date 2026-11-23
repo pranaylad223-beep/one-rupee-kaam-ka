@@ -1,0 +1,9 @@
+{
+  "name": "1 RUPEE KAAM KA",
+  "short_name": "₹1 Kaam Ka",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f6fb",
+  "theme_color": "#101828",
+  "icons": []
+}
